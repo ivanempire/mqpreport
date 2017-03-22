@@ -12,3 +12,4 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 - [ ] Results  
 - [ ] Conclusion  
 - [ ] Further work  
+- [ ] Appendix  
