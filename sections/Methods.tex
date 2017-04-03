@@ -1,7 +1,7 @@
 \label{sec:methods}
 \section{Methods and Materials}
 
-The design and the implementation of the nuclear reactor were carried out using MCNP5.1 run both locally, as well as remotely on servers to verify results.  The design was approached in a "bottom-up" faction. This meant that the reactor's core was designed and tested first. After this, the surrounding material, as well as its geometry, were designed and tested for optimal neutron reflectivity. Finally, the output chamber was added with an FMESH tally running the neutron counts. This approach allowed us to incrementally structure the reactor and catch any errors in their early stages.\\
+The design and the implementation of the nuclear reactor were carried out using MCNP5.1 run both locally, as well as remotely on servers to verify results.  The design was approached in a "bottom-up" fashion. This meant that the reactor's core was designed and tested first. After this, the surrounding material, as well as its geometry, were designed and tested for optimal neutron reflectivity. Finally, the output chamber was added with an FMESH tally running the neutron counts. This approach allowed us to incrementally structure the reactor and catch any errors in their early stages.\\
 
 \subsection{Core}
 
@@ -56,5 +56,16 @@ Neutrons that are to be used in research would be extremely difficult to direct 
 Several materials were looked at with which to fill the shell around the core. These were water, graphite and vacuum. Looking at the criticality results in section \ref{sec:results}, using water enabled a criticality coefficient of $k\approx 1$. This meant that the core was perfectly critical - with little chances of creating a runaway chain reaction or the fission reactions dying out. Vacuum did not interact with the neutrons at all, which may have created issues later on with sustained reactions. Graphite has been omitted since the k-coefficient value was over 2, indicating an extremely volatile and supercritical core.
 \subsection{Chamber}
 
-With the core shifted to the side of the enclosing shell, it was now possible to add the neutron chamber on that very side. One side of the core's structure would be directly exposed to the chamber. As a result, the neutrons produced on that side would be emitted directly for flux calculations and use. The other 5 sides of the rectangular core structure would be fueling the fission reactions through the emission and reflection of thermal neutrons within the shell itself. From the criticality results, seen in section \ref{sec:results}, the side length of the core was taken to be $12cm$ in each direction. From this we see that the core is actually a cube. As a result, the cross section of the chamber is 12x12cm in order to capture all particles emitted. The placement of the core reduces particle leak, however, due to the nature of the geometry (cube placed against a spherical surface), some neutrons may leak back into the shell. The flux lost due to this is negligible since the returned neutrons will fuel further fission reactions after being reflected back into the core by the shell.
+With the core shifted to the side of the enclosing shell, it was now possible to add the neutron chamber on that very side. One side of the core's structure would be directly exposed to the chamber. As a result, the neutrons produced on that side would be emitted directly for flux calculations and use. The other 5 sides of the rectangular core structure would be fueling the fission reactions through the emission and reflection of thermal neutrons within the shell itself. From the criticality results, seen in section \ref{sec:results}, the side length of the core was taken to be $12cm$ in each direction. From this we see that the core is actually a cube. As a result, the cross section of the chamber is 12x12cm in order to capture all particles emitted.
+
+\begin{figure}[!htbp]
+\caption{Shell, core, chamber structure.}
+\label{fig:chamber}
+\centering
+\includegraphics[width=0.75\textwidth]{chamber.png}
+\end{figure}
+
+The placement of the core reduces particle leak, however, due to the nature of the geometry (cube placed against a spherical surface), some neutrons may leak back into the shell. The flux lost due to this is negligible since the returned neutrons will fuel further fission reactions after being reflected back into the core by the shell. The structure of the shell, core and neutron chamber can be seen in figure \ref{fig:chamber}. Naturally, the neutron flux tally will be carried out in the chamber.
+
 \subsection{Tally}
+
