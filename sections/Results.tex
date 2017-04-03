@@ -1,2 +1,44 @@
 \label{sec:results}
 \section{Results}
+
+The goal of the project is to test the feasibility of a room-sized reactor for research purposes. The room-size is key here for initial criticality calculations. The shell radius was first taken to be $r=10cm$, resulting in a reactor just over 20cm on its length, width and height. However, the core was not critical enough at these dimensions, and hence the radius was increased to $r=100cm$. With this, a pure Uranium-235 core yielded values that are presented in table \ref{tab:pure}.
+\begin{table}[!htbp]
+\centering
+\caption{Theoretical criticality coefficients.}
+\label{tab:pure}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Length (cm) & Graveyard radius (cm) & Composition & Submersion & Coefficient \\
+\hline
+10 & 10 & Pure U-235  & Vacuum & 0.74311 \\
+\hline
+20 & 10 & Pure U-235  & Vacuum & 1.30614 \\
+\hline
+10 & 100 & Pure U-235  & Water & 0.99284 \\
+\hline
+12 & 100 & Pure U-235  & Water & 1.12452 \\
+\hline
+\end{tabular}
+\end{table}
+These results are extremely theoretical, however, and were used to get a general estimate for various criticalities given the dimensions of the core, as well as the material in which it is submerged.
+
+In order to obtain practical results that can be used in real-world applications of the reactor, the percentage composition of the core had to be changed. Most of the core is now Graphite, at a composition level of 81\%. The rest is Uranium-235, with a percentage composition of 19\%. Table \ref{tab:nonpure} presents criticalities with the proper composition.
+
+\begin{table}[!htbp]
+\centering
+\caption{Practical criticality coefficients.}
+\label{tab:nonpure}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Length (cm) & Graveyard radius (cm) & Composition & Submersion & Coefficient \\
+\hline
+10 & 100 & 19\% - 81\% split  & Water & 1.0544 \\
+\hline
+12 & 100 & 19\% - 81\% split  & Water & 1.2042 \\
+\hline
+24 & 100 & 19\% - 81\% split  & Water & 1.7077 \\
+\hline
+25 & 100 & 19\% - 81\% split  & Water & 1.7125 \\
+\hline
+\end{tabular}
+\end{table}
