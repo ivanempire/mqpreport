@@ -5,7 +5,7 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 
 - [ ] Abstract  
 - [ ] Introduction/background research  
-- [ ] Materials  
+- [x] Materials  
 - [ ] MCNP section  
 - [ ] Method  
 - [ ] Design  
