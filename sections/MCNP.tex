@@ -23,7 +23,7 @@ A sample MCNP input file consists of the following components. There are 3 block
 \includegraphics[width=0.75\textwidth]{prog.png}
 \end{figure}
 \subsection{Example geometry}
-A good way to understand MCNP syntax and its complexity is a simple example. As a result, a cube will be submerged into a spherical container and that container will be filled with water. Throughout the project, it was found that specifying surfaces first was an easier approach, followed up the cell definitions. As a result, the input file was structured out of order, however, this allowed for a more step-by-step approach to the simulation setup. In order to create a cube, the general procedure is the following:
+A good way to understand MCNP syntax and its complexity is a simple example. As a result, a graphite cube will be submerged into a spherical container and that container will be filled with water. Throughout the project, it was found that specifying surfaces first was an easier approach, followed up the cell definitions. As a result, the input file was structured out of order, however, this allowed for a more step-by-step approach to the simulation setup. In order to create a cube, the general procedure is the following:
 \begin{enumerate}
 	\item Specify 6 outward facing surfaces.
 	\item Specify 6 inward facing surfaces.
@@ -45,7 +45,18 @@ In the above example, 10 is the number of the macrobody, which will be important
 \end{lstlisting}
 \end{tabular}
 \end{center}
-The structure is similar - 20 is the label for the macrobody, SO is the command, 100 is the radius.
+The structure is similar - 20 is the label for the macrobody, SO is the command, 100 is the radius. For this example, we need water and graphite as the materials. These are specified in the final, data block, which will be further looked at in the next section. Material definitions, however, are fairly straightforward. To label a material, one types the letter "M", followed by a number. After that, the material is defined by elemental and atomic abundances. Water, having 2 hydrogen atoms and an oxygen atom, is defined as:
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+M1 1000 2
+   8000 1
+\end{lstlisting}
+\end{tabular}
+\end{center}
+The general format for isotope specification is $ZZZAAA$, where $ZZZ$ is the atomic number and $AAA$ is the mass number. Specifying $AAA$ as 000 tells MCNP to use the elemental form, as is done above. The 1000 and 8000 specify the forms of hydrogen and oxygen, respectively. To specify graphite, the label can be M2, with the atomic and mass numbers being equal to 60
+
+With the basic definitions in place, the cells block can be examined now. The syntax is similar as well - cells first have a label, then a material 
 %Criticalities, data blocks, random walks are all here.
 \label{sec:simulations}
 \subsection{Simulations}
