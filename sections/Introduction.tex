@@ -76,4 +76,18 @@ The $\Psi(\vec{r},\vec{v})$ term defines the collision density of particles acro
 \begin{equation}
 Q(r,v) = S(\vec{r},\vec{v}) + \int\Psi(\vec{r},\vec{v'})F(\vec{v'}\rightarrow \vec{v},\vec{r})d\vec{v'}
 \end{equation}
-$S$ defines the fact that the source is stationary, and that the primary particles will be emitted from a fixed point in the simulation space. The collision density term accounts for the fact that the core will be undergoing fission, defined as $F$. What makes MCNP so powerful is the simultaneous use of the collision and transport kernels. This allows the simulation to look at particles that change velocity and direction at any point in the simulation space. Through the extensive calculations that MCNP carries out, the decades of development put into it, as well as its ability to take into account all physical properties of materials used, the software package proved ideal for the design and simulation of GOFR.
+$S$ defines the fact that the source is stationary, and that the primary particles will be emitted from a fixed point in the simulation space. The collision density term accounts for the fact that the core will be undergoing fission, defined as $F$. What makes MCNP so powerful is the simultaneous use of the collision and transport kernels. This allows the simulation to look at particles that change velocity and direction at any point in the simulation space. Every interaction that a particle has with another particle is stored in the simulation memory. The states of the particles - energy, velocity, direction - are saved in order to extrapolate results and determine the convergence. The flow diagram in figure \ref{fig:randomwalk}, can also be seen in terms of particle histories, seen in figure \ref{fig:histories}.
+
+\begin{figure}[!htbp]
+\caption{Particle interaction histories.}
+\label{fig:histories}
+\centering
+\includegraphics[width=0.85\textwidth]{histories.png}
+\end{figure}
+With the histories, MCNP is able to extrapolate where the particles will end up after future runs and what their energies will be. The final results are defined in the following way:
+\begin{equation*}
+A = \int A(p)\Psi(p)dp \approx \frac{1}{M}\sum_{m=1}^M\Big(\sum_{k=1}^\infty A(p_{k,m})\Big)
+\end{equation*}
+The final, average state of the particle is the integral of the product between the collision density and the particle states. The integral can be estimated through a classic Riemann sum, where $M$ is the number of particle histories and samples. The larger the value of $M$, the more accurate the final results are. 
+
+Through the extensive calculations that MCNP carries out, the decades of development put into it, as well as its ability to take into account all physical properties of materials used, the software package proved ideal for the design and simulation of GOFR.
