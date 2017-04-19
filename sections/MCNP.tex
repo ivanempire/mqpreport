@@ -7,7 +7,7 @@ MCNP is based on Fortran, the most common version being Fortran-90. The basic pr
 \caption{MCNP program structure.}
 \label{fig:program}
 \centering
-\includegraphics[width=0.75\textwidth]{prog.png}
+\includegraphics[width=0.5\textwidth]{prog.png}
 \end{figure}
 
 MCNP programs contain definitions for geometries in a 3D dimensional Cartesian coordinate system. A good way to look at cells, surfaces and their material definitions is the following. In figure \ref{fig:regions}, A and B are two surfaces. Each surface has a negative and positive value, which is important for particle interactions. If a value is negative, then the surface is facing inwards relative to the origin. The mathematical depiction can be seen in figure \ref{fig:planes}, where the normal vector $n_2$ is expressed by a negative surface number, whilst the vector $n_1$ is a positive surface number.
@@ -125,7 +125,10 @@ Since the data block does not have any simulation specifications (only the mater
 \label{sec:simulations}
 \subsection{Data block}
 
+\textbf{Criticality tests}\\
+
 The final data block is where the simulation specifications, as well as other aspects like unit conversions are defined. In Layman's terms, this is where one tells MCNP what to do with the provided geometry. Two main types of simulations were run for the project - a criticality tests and an FMESH tally. The criticality test takes a fissionable source and sees if the geometry will be able to sustain the reaction. The value returned is called the k-coefficient. If the value is greater than 1, then the geometry (mainly the fissionable core that is being tested) is super critical. If it is equal to 1, then the setup is critical. Anything under 1 is non-critical and will die out. A typical criticality test is run using two commands: \textbf{kcode} and \textbf{ksrc}. The first command specifies the number of particle histories to look at, the k-coefficient value to attempt to obtain, number of cycles and samples. An example command is seen below:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -133,7 +136,9 @@ kcode 1000  1.0  15 115
 \end{lstlisting}
 \end{tabular}
 \end{center}
+
 The above line indicates that 1000 particles will be looked at to attempt to obtain a criticality value of 1, with 115 samples and 15 cycles per sample. The only thing left to do is to specify the source of the reactions, in this case the origin:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -141,18 +146,7 @@ ksrc 0 0 0
 \end{lstlisting}
 \end{tabular}
 \end{center}
-The k-code will shoot particles from the source into a random direction and see if they trigger other fission reactions. This procedure links back to the random walk problem - every interaction a particle has with something else in the defined geometry is randomly generated/processed. MCNP goes one step further for particle simulations - it keeps a history of the previous states of the particles. This is known, not surprisingly, a particle history. Back in figure %\ref{fig:randomwalk}, each random walk block contains a particle state that MCNP keeps track of. When a particle reaches the graveyard, it disappears, but the results are still listed in the output. An example criticality output is seen below.
-%Gotta figure out how I want to show it....
 
-The second
-%Particle simulation section
-%A good way to look at an example particle simulation is the random walk problem, the diagram for which can be seen in figure \ref{fig:randomwalk}.
-% \begin{figure}[!htbp]
-% \caption{MCNP random walk.}
-% \label{fig:randomwalk}
-% \centering
-% \includegraphics[width=0.75\textwidth]{walk - edited.png}
-% \end{figure}
-% In the diagram, some particle (a proton or a neutron, for example) starts its path at the source block and is launched in a random direction. After that, it can interact with something else in the simulation space - other protons or neutrons. A collision takes place and the particle is launched into another random direction. This goes on for a certain number of cycles, specified by the user.
+The k-code will emit particles from the source into a random direction and see if they trigger other fission reactions. This procedure links back to the random walk problem - every interaction a particle has with something else in the defined geometry is randomly generated/processed. After running for the specified number of samples, MCNP will output the criticality that results from the specified geometry. The results returned are in the forms of confidence intervals, however, the average value is the one to look at, which MCNP will also give you. This was the main approach to determining the size and composition of the core. Obtaining a value as close to $k=1$ was crucial for the GOFR since a runaway reaction would cause safety concerns. On the other hand, a sub-critical core would die out and the beam of neutrons emitted will not last long (or be powerful enough).
 
-%takes Monte-Carlo simulations one step forward. The program solves a series of random-walk problems. In the current case, a random particle is traced from its source to a certain definition.
+\textbf{FMESH tally}\\
