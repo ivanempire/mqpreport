@@ -150,3 +150,43 @@ ksrc 0 0 0
 The k-code will emit particles from the source into a random direction and see if they trigger other fission reactions. This procedure links back to the random walk problem - every interaction a particle has with something else in the defined geometry is randomly generated/processed. After running for the specified number of samples, MCNP will output the criticality that results from the specified geometry. The results returned are in the forms of confidence intervals, however, the average value is the one to look at, which MCNP will also give you. This was the main approach to determining the size and composition of the core. Obtaining a value as close to $k=1$ was crucial for the GOFR since a runaway reaction would cause safety concerns. On the other hand, a sub-critical core would die out and the beam of neutrons emitted will not last long (or be powerful enough).
 
 \textbf{FMESH tally}\\
+
+The second type of simulations run on the GOFR was an FMESH tally. A tally in MCNP is a counting mechanism for the number of particles that will pass through a certain region over the course of the whole simulation. The units are MeV/cm$^2$, and for this project the neutrons were counted only, using a special variation of an MCNP tally - the FMESH\footnote{There are a total of 11 types of tallies available in MCNP, all of which are listed in the manual or the primer.}. In order to count the particles in an FMESH, one must specify its dimensions, as well as the bins, which will count the particles themselves. A good way to think about such a tally is a Lego Block, an example one seen in figure \ref{fig:lego}.
+
+\begin{figure}[!htbp]
+\caption{Mesh tallies can be thought of as Lego blocks.}
+\label{fig:lego}
+\centering
+\includegraphics[width=0.25\textwidth]{lego.png}
+\end{figure}
+
+The block itself, most of which are rectangular, is the tally. It is defined in 3 dimensions, again with x, y and z coordinates. The connectors that link up the Lego blocks are the bins, where the particles will actually be counted. The sizes and positions of these bins must also be specified. An example FMESH tally is defined below:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+FMESH14:N geom=XYZ origin=-15, 105, -15 
+	imesh 15 iints 100
+	jmesh 106 jints 1
+	kmesh 15 kints 100
+	OUT=COL
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+The above example defines the following parameters for the volumetric tally. The tally will be an FMESH one, counting only the neutrons. Its location and dimensions are defined in x, y and z coordinates. The origin of the tally is at $(x,y,z)\rightarrow (-15,105,-15)$. The x direction of the tally will be split into 100 bins and will start at 15cm from the origin. The y direction will start at 106cm from the origin and will have 1 bin. Finally, the z direction will start at 15cm from the origin, and have 100 bins. At the end, the output is specified to be collimated - meaning that the results will be split into their coordinate groupings. The example output is seen below:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+X      Y       Z       Result      Relative error
+95.500 -24.833 -24.833 2.67541E-03 5.18589E-01
+95.500 -24.833 -24.500 8.02861E-03 4.72413E-01
+95.500 -24.833 -24.167 1.60623E-02 3.91226E-01
+95.500 -24.833 -23.833 9.61243E-03 3.83485E-01
+95.500 -24.833 -23.500 1.24564E-02 3.95931E-01
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Through these two types of simulations, two versions of the GOFR reactor were designed. Although the versions share similarities on a basic level, the materials and results differ vastly.
