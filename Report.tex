@@ -3,11 +3,17 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{indentfirst}
 \graphicspath{{figures/}}
 \usepackage{setspace}
 \doublespacing
 \begin{document}
 \renewcommand\thesection{\arabic{section}}
+\input{sections/Cover.tex}
+\titleGP
+\thispagestyle{empty}
+This report represents the work of WPI undergraduate students submitted to the faculty as evidence of completion of a degree requirement. WPI routinely publishes these reports on its web site without editorial or peer review.
+\clearpage
 \input{sections/Abstract.tex}
 \input{sections/Introduction.tex}
 \input{sections/MCarlo.tex}
