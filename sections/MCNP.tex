@@ -1,35 +1,45 @@
 \label{sec:mcnp}
 \section{MCNP}
 \subsection{General information}
-MCNP, or Monte-Carlo N-Particle Transport Code, is a software package that is used for nuclear simulations. It is based on Fortran, the most common version being Fortran-90. A typical MCNP program contains definitions for geometries in a 3D dimensional Cartesian coordinate system, which are composed of cells, surfaces and their material definitions. In figure \ref{fig:regions}, A and B are two surfaces defined in MCNP. Each surface has a negative and positive value, which is important for particle interaction. If a value is negative, then the surface is facing inwards relative to the origin. The mathematical depiction can be seen in figure \ref{fig:planes}, where the normal vector $n_2$ is expressed by a negative surface number, whilst the vector $n_1$ is a positive surface number.
+MCNP is based on Fortran, the most common version being Fortran-90. The basic programming principle is similar to that of punch cards: a program is split into several blocks, where various aspects of a simulation are defined. The first block defines cells, the second one defines surfaces, finally, the last block defines what simulations MCNP is supposed to run. An example MCNP program structure can be seen in figure \ref{fig:program}. The blocks are separated by blank lines, which are required for MCNP to properly read in the file. If the lines are omitted, then the definitions will not be seen correctly. Comments can be added to the input files as well. A full line comment starts with the letter "c", whilst an inline comment starts with a dollar sign (\$). It is important to note that all lines should not exceed 80 characters in length.
+
+\begin{figure}[!htbp]
+\caption{MCNP program structure.}
+\label{fig:program}
+\centering
+\includegraphics[width=0.5\textwidth]{prog.png}
+\end{figure}
+
+MCNP programs contain definitions for geometries in a 3D dimensional Cartesian coordinate system. A good way to look at cells, surfaces and their material definitions is the following. In figure \ref{fig:regions}, A and B are two surfaces. Each surface has a negative and positive value, which is important for particle interactions. If a value is negative, then the surface is facing inwards relative to the origin. The mathematical depiction can be seen in figure \ref{fig:planes}, where the normal vector $n_2$ is expressed by a negative surface number, whilst the vector $n_1$ is a positive surface number.
+
 \begin{figure}[!htbp]
 \caption{Normal vectors to a plane.}
 \label{fig:planes}
 \centering
 \includegraphics[width=0.25\textwidth]{normals.png}
 \end{figure}
-Surfaces can be combined together to create cells. Defined as either unions or intersections, the resulting cells from surfaces A and B are seen in figure \ref{fig:regions}. An important MCNP concept to remember is that when looking at a typical geometrical shape, for example a cube, one must double the number of faces. In a cube, the number of faces is 6, however, because of positive and negative surfaces, the shape should be looked at as having 12 faces. Understanding this was a key point in the project. Being able to identify which regions were required and which surfaces to ignore allowed us to carry out simulations more effectively and accurately.
+
+Surfaces can be combined together to create cells. Defined as either unions or intersections, the resulting cells from surfaces A and B are seen in figure \ref{fig:regions}. An important MCNP concept to remember is that when looking at a typical geometrical shape, for example a cube, one must double the number of faces. In a cube, the number of faces is 6, however, because of positive and negative surfaces, the shape should be looked at as having 12 faces\footnote{Similarly, a sphere will have 2 surfaces - an inner one and an outer one.}. Understanding this was a key point in the project. Being able to identify which regions were required and which surfaces to ignore allowed us to carry out simulations more effectively and accurately.
+
 \begin{figure}[!htbp]
 \caption{Example MCNP regions.}
 \label{fig:regions}
 \centering
 \includegraphics[width=0.75\textwidth]{regions.png}
 \end{figure}
-A sample MCNP input file consists of the following components. There are 3 blocks, each separated by a blank line: first come the cell definitions, followed by surface definitions and finally the data blocks (introduced in section \ref{sec:simulations}). There are also optional comments that can be added at different points. The blank lines, however, need to be kept, otherwise MCNP will not be able to distinguish the blocks. A full line comment starts with the letter "c", whilst an inline comment starts with a dollar sign (\$). It is important to note that all lines should not exceed 80 characters in length. A visual representation of an MCNP program can be see in figure \ref{fig:program}
-\begin{figure}[!htbp]
-\caption{MCNP program structure.}
-\label{fig:program}
-\centering
-\includegraphics[width=0.75\textwidth]{prog.png}
-\end{figure}
+
 \subsection{Example geometry}
-A good way to understand MCNP syntax and its complexity is a simple example. As a result, a graphite cube will be submerged into a spherical container and that container will be filled with water. Throughout the project, it was found that specifying surfaces first was an easier approach, followed up the cell definitions. As a result, the input file was structured out of order, however, this allowed for a more step-by-step approach to the simulation setup. In order to create a cube, the general procedure is the following:
+
+A good way to understand MCNP syntax and its complexity is a simple example. For this, a graphite cube will be submerged into a spherical container and that container will be filled with water. Throughout the project, it was found that specifying surfaces first was an easier approach, followed by the cell definitions. The input file was structured out of order, however, this allowed for a more step-by-step approach to the simulation setup. In order to create a cube, the procedure is the following:
+
 \begin{enumerate}
 	\item Specify 6 outward facing surfaces.
 	\item Specify 6 inward facing surfaces.
-	\item Combine all of the relevant surfaces into a cell. For example, the outside of the cube would be a union of the outward facing surfaces, and the inside will be a union of the inward facing ones.
+	\item Combine all of the relevant surfaces into a cell. Here, the outside of the cube would be a union of the outward facing surfaces, and the inside will be a union of the inward facing ones.
 \end{enumerate}
-Although this is only 3 steps, the procedure is fairly complex. In order to specify a single surface of a cube, one must figure out the side length, center and boundaries of the square in question. Doing this 12 times in a 3D coordinate system becomes monotone and challenging, especially when dealing with complex, irregular geometries. MCNP does have a solution, however - macrobodies. With one command, MCNP will know that the shape specified is a cube, sphere or pyramid (to name a few). The command for a rectangular parallelepiped is \textbf{RPP}. In order to create a cube centered at the origin with a side length of $10$cm, the command is:
+
+Although this is only 3 steps, the procedure is fairly complex. In order to specify a single surface, one must figure out the side length, center and boundaries of the square in question. Doing this 12 times becomes monotone and challenging, especially when dealing with complex, irregular geometries. MCNP does have a solution, however - macrobodies. With one command, MCNP will know that the shape specified is a cube, sphere or pyramid, to name a few. The command for a rectangular parallelepiped is \textbf{RPP}. In order to create a cube centered at the origin with a side length of $10$cm, the command is:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -37,7 +47,9 @@ Although this is only 3 steps, the procedure is fairly complex. In order to spec
 \end{lstlisting}
 \end{tabular}
 \end{center}
-In the above example, 10 is the number of the macrobody, which will be important in the cell block. The first two numbers indicate a starting and ending x-coordinate\footnote{MCNP units are metric, with length defaulting to centimeters.}, followed by the same syntax for a y and z coordinate. The next step is to add a container around the cube. This can be a sphere, again, specified by a macrobody, the command for which is \textbf{SO}. If the radius is set to 100cm, then:
+
+In the above example, 10 is the number of the macrobody, which will be important in the cell block - it is an identifier. The first two numbers indicate a starting and ending x-coordinate\footnote{MCNP units are metric, with length defaulting to centimeters.}, followed by the same syntax for y and z coordinates. The next step is to add a container around the cube. This can be a sphere, again, specified by a macrobody, the command for which is \textbf{SO}. If the radius is to be 100cm, then:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -45,7 +57,9 @@ In the above example, 10 is the number of the macrobody, which will be important
 \end{lstlisting}
 \end{tabular}
 \end{center}
-The structure is similar - 20 is the label for the macrobody, SO is the command, 100 is the radius. For this example, we need water and graphite as the materials. These are specified in the final, data block, which will be further looked at in the next section. Material definitions, however, are fairly straightforward. To label a material, one types the letter "M", followed by a number. After that, the material is defined by elemental and atomic abundances. Water, having 2 hydrogen atoms and an oxygen atom, is defined as:
+
+The structure is similar - 20 is the label for the macrobody, SO is the command, 100 is the radius. For this example, we need water and graphite as the materials. These are specified in the final, data block. Material definitions are fairly straightforward. To label a material, one types the letter "M", followed by a number. After that, the material is defined by elemental and atomic abundances. Water, having 2 hydrogen atoms and an oxygen atom, is defined as:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -54,7 +68,9 @@ M1 1000 2
 \end{lstlisting}
 \end{tabular}
 \end{center}
-The general format for isotope specification is $ZZZAAA$, where $ZZZ$ is the atomic number and $AAA$ is the mass number. Specifying $AAA$ as 000 tells MCNP to use the elemental form, as is done above. The 1000 and 8000 specify the forms of hydrogen and oxygen, respectively. To specify graphite, the label can be M2, with the atomic and mass numbers being equal to 12 and 60, respectively. To specify 100\% composition, we defined graphite to be:
+
+The general format for isotope specification is $ZZZAAA$, where $ZZZ$ is the atomic number and $AAA$ is the mass number. Specifying $AAA$ as 000 tells MCNP to use the elemental form, as is done above. The 1000 and 8000 specify the forms of hydrogen and oxygen, respectively. To specify graphite, the label can be M2, with the atomic and mass numbers being equal to 12 and 60, respectively. To specify 100\% composition, we define graphite as\footnote{The 1 at the end of the command specifies fractional composition - 1 being equal to 100\%.}:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -62,7 +78,9 @@ M2 06012 1
 \end{lstlisting}
 \end{tabular}
 \end{center}
-Since the surfaces and the materials have been defined, the cells' block can be examined now. The syntax is similar to previous definitions - a cell number, followed by its material, its density, surface number (positive or negative facing) and its importance. The density sign should match the surface number sign - if a surface is defined by a negative cell, then the density will be negative as well. The importance is a property of the material to interact with particles. In this project's case, setting \text{imp:N=1} means that only neutrons will be affected by this cell. Below is the definition for the graphite cube cell:
+
+Since the surfaces and the materials have been defined, the cells' block can be examined now. The syntax is similar to previous definitions - a cell number, followed by its material, its density, surface number (positive or negative facing) and its importance. The density sign should match the surface number sign - if a surface is defined by a negative cell, then the density\footnote{Density is specified in terms of MCNP's constants - found either in the manual or primer.} will be negative as well. The importance is a property of the material to interact with particles. In this project's case, setting \text{imp:N=1} means that this cell will only interact with neutrons. Below is the definition for the graphite cube cell:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -70,7 +88,9 @@ Since the surfaces and the materials have been defined, the cells' block can be 
 \end{lstlisting}
 \end{tabular}
 \end{center}
+
 The above definition completely sets up the cube at the center of the universe. In order to setup the surrounding water, the definition is presented below:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -78,7 +98,9 @@ The above definition completely sets up the cube at the center of the universe. 
 \end{lstlisting}
 \end{tabular}
 \end{center}
+
 The setup is the same as for the previous cell - its label is 2, M1 is used for the material (water), and the cell is defined as the union of the outward facing surfaces of the cube, but the inward facing surfaces of the sphere. The water will interact with the neutrons only. The setup is almost complete, however, the graveyard must be added. This is the boundary of the simulation where the particles simply vanish. To do this, the outward facing surface of the sphere has to be set to 0 importance and material 0, which is vacuum:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -86,12 +108,27 @@ The setup is the same as for the previous cell - its label is 2, M1 is used for 
 \end{lstlisting}
 \end{tabular}
 \end{center}
-%OK so this needs to get added
-The setup is complete and the full file can be found in the Appendix.
-%Criticalities, data blocks, random walks are all here.
+
+The setup is complete and the full file can be found in Appendix 1. Assuming you have saved the file as \textbf{example.txt}, there are several ways to run the program. The commands depend on your operating system, but primarily the version of MCNP used:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+mcnp example.txt
+mcnp6.mpi ir inp=example.txt
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Since the data block does not have any simulation specifications (only the material definitions), MCNP will not output anything meaningful. In the second version of the command above, the flag "ir" was used to specify that the file should be run. In order to inspect the geometry and see if it is valid (assuming you have the graphical MCNP geometry editor), the flag "i" should be used by itself.
+
 \label{sec:simulations}
-\subsection{Simulations}
-The final data block is where the rest of the additions take place - this is where one specifies which simulations to run, units to use, in general, what should MCNP do with the geometry provided. Primarily - two main simulations were run for the project - a criticality test and an FMESH tally. The criticality test takes a fissionable source and sees if the geometry will be able to sustain the reaction. The value returned is called the k-coefficient. If the value is greater than 1, then the geometry (mainly the fissionable core that is being tested) is super critical. If it is equal to 1, then the setup is critical. Anything under 1 is non-critical and will die out. A typical criticality test is run using two commands: \textbf{kcode} and \textbf{ksrc}. The first command specifies the number of particle histories to look at, the k-coefficient value to attempt to obtain, number of cycles and samples. An example command is seen below:
+\subsection{Data block}
+
+\textbf{Criticality tests}\\
+
+The final data block is where the simulation specifications, as well as other aspects like unit conversions are defined. In Layman's terms, this is where one tells MCNP what to do with the provided geometry. Two main types of simulations were run for the project - a criticality tests and an FMESH tally. The criticality test takes a fissionable source and sees if the geometry will be able to sustain the reaction. The value returned is called the k-coefficient. If the value is greater than 1, then the geometry (mainly the fissionable core that is being tested) is super critical. If it is equal to 1, then the setup is critical. Anything under 1 is non-critical and will die out. A typical criticality test is run using two commands: \textbf{kcode} and \textbf{ksrc}. The first command specifies the number of particle histories to look at, the k-coefficient value to attempt to obtain, number of cycles and samples. An example command is seen below:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -99,7 +136,9 @@ kcode 1000  1.0  15 115
 \end{lstlisting}
 \end{tabular}
 \end{center}
+
 The above line indicates that 1000 particles will be looked at to attempt to obtain a criticality value of 1, with 115 samples and 15 cycles per sample. The only thing left to do is to specify the source of the reactions, in this case the origin:
+
 \begin{center}
 \begin{tabular}{c}
 \begin{lstlisting}
@@ -107,18 +146,47 @@ ksrc 0 0 0
 \end{lstlisting}
 \end{tabular}
 \end{center}
-The k-code will shoot particles from the source into a random direction and see if they trigger other fission reactions. This procedure links back to the random walk problem - every interaction a particle has with something else in the defined geometry is randomly generated/processed. MCNP goes one step further for particle simulations - it keeps a history of the previous states of the particles. This is known, not surprisingly, a particle history. Back in figure \ref{fig:randomwalk}, each random walk block contains a particle state that MCNP keeps track of. When a particle reaches the graveyard, it disappears, but the results are still listed in the output. An example criticality output is seen below.
-%Gotta figure out how I want to show it....
 
-The second
-%Particle simulation section
-%A good way to look at an example particle simulation is the random walk problem, the diagram for which can be seen in figure \ref{fig:randomwalk}.
-% \begin{figure}[!htbp]
-% \caption{MCNP random walk.}
-% \label{fig:randomwalk}
-% \centering
-% \includegraphics[width=0.75\textwidth]{walk - edited.png}
-% \end{figure}
-% In the diagram, some particle (a proton or a neutron, for example) starts its path at the source block and is launched in a random direction. After that, it can interact with something else in the simulation space - other protons or neutrons. A collision takes place and the particle is launched into another random direction. This goes on for a certain number of cycles, specified by the user.
+The k-code will emit particles from the source into a random direction and see if they trigger other fission reactions. This procedure links back to the random walk problem - every interaction a particle has with something else in the defined geometry is randomly generated/processed. After running for the specified number of samples, MCNP will output the criticality that results from the specified geometry. The results returned are in the forms of confidence intervals, however, the average value is the one to look at, which MCNP will also give you. This was the main approach to determining the size and composition of the core. Obtaining a value as close to $k=1$ was crucial for the GOFR since a runaway reaction would cause safety concerns. On the other hand, a sub-critical core would die out and the beam of neutrons emitted will not last long (or be powerful enough).
 
-%takes Monte-Carlo simulations one step forward. The program solves a series of random-walk problems. In the current case, a random particle is traced from its source to a certain definition.
+\textbf{FMESH tally}\\
+
+The second type of simulations run on the GOFR was an FMESH tally. A tally in MCNP is a counting mechanism for the number of particles that will pass through a certain region over the course of the whole simulation. The units are MeV/cm$^2$, and for this project the neutrons were counted only, using a special variation of an MCNP tally - the FMESH\footnote{There are a total of 11 types of tallies available in MCNP, all of which are listed in the manual or the primer.}. In order to count the particles in an FMESH, one must specify its dimensions, as well as the bins, which will count the particles themselves. A good way to think about such a tally is a Lego Block, an example one seen in figure \ref{fig:lego}.
+
+\begin{figure}[!htbp]
+\caption{Mesh tallies can be thought of as Lego blocks.}
+\label{fig:lego}
+\centering
+\includegraphics[width=0.25\textwidth]{lego.png}
+\end{figure}
+
+The block itself, most of which are rectangular, is the tally. It is defined in 3 dimensions, again with x, y and z coordinates. The connectors that link up the Lego blocks are the bins, where the particles will actually be counted. The sizes and positions of these bins must also be specified. An example FMESH tally is defined below:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+FMESH14:N geom=XYZ origin=-15, 105, -15 
+	imesh 15 iints 100
+	jmesh 106 jints 1
+	kmesh 15 kints 100
+	OUT=COL
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+The above example defines the following parameters for the volumetric tally. The tally will be an FMESH one, counting only the neutrons. Its location and dimensions are defined in x, y and z coordinates. The origin of the tally is at $(x,y,z)\rightarrow (-15,105,-15)$. The x direction of the tally will be split into 100 bins and will start at 15cm from the origin. The y direction will start at 106cm from the origin and will have 1 bin. Finally, the z direction will start at 15cm from the origin, and have 100 bins. At the end, the output is specified to be collimated - meaning that the results will be split into their coordinate groupings. The example output is seen below:
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}
+X      Y       Z       Result      Relative error
+95.500 -24.833 -24.833 2.67541E-03 5.18589E-01
+95.500 -24.833 -24.500 8.02861E-03 4.72413E-01
+95.500 -24.833 -24.167 1.60623E-02 3.91226E-01
+95.500 -24.833 -23.833 9.61243E-03 3.83485E-01
+95.500 -24.833 -23.500 1.24564E-02 3.95931E-01
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+Through these two types of simulations, two versions of the GOFR reactor were designed. Although the versions share similarities on a basic level, the materials and results differ vastly.

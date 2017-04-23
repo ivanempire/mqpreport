@@ -1,9 +1,12 @@
 \label{sec:results}
 \section{Results}
 
-One of the main goals of the project is to test the feasibility of a room-sized reactor for research purposes. The room-size is key here for initial criticality calculations. The shell radius was first taken to be $r=10cm$, resulting in a reactor just over 20cm on its length, width and height. However, the core was not critical enough at these dimensions, and hence the radius was increased to $r=100cm$. This was done in order to accommodate a larger core to get a k-coefficient of $k=1$.
+\subsection{Criticalities}
 
-The first step was to determine the relationship between the size of the core (in these runs, pure U-235), and the criticality. Seen in table \ref{tab:pure}, the relationship is seen to be linear. Some important things to note are the fact that the core was surrounded by vacuum and nothing else. Particles were not bounced back into the core - they disappeared at the graveyard boundary.
+One of the main goals of the project was to test the feasibility of a room-sized reactor for research purposes. The room-size aspect is key here for initial criticality calculations. The shell radius was first taken to be $r=10cm$, resulting in a reactor just over 20cm on its length, width and height. However, the core was not critical enough at these dimensions, and hence the radius was increased to $r=100cm$. This was done in order to accommodate a larger core to get a k-coefficient of $k=1$.
+
+The first step was to determine the relationship between the size of the core (in these simulations, pure U-235), and the criticality. From table \ref{tab:pure}, the relationship is seen to be linear.
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in water without shell}
@@ -20,7 +23,9 @@ Pure U-235  & 30               & N/A            & Water       & 1.76348       \\
 \hline
 \end{tabular}
 \end{table}
-As seen from table \ref{tab:pure}, the relationship between size and criticality is linear. This remains the case when the core is in vacuum. However, the k-coefficients are less here due to the surrounding empty space - table \ref{tab:purevac}.
+
+The linear relationship applies holds in the case when the core is in vacuum. An important note here is the fact that particles were not bounced back into the core - they disappeared at the graveyard boundary. The k-coefficients are less here due to the surrounding empty space - table \ref{tab:purevac}.
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in vacuum without shell}
@@ -37,8 +42,9 @@ Pure U-235  & 30               & N/A            & Vacuum       & 1.64085       \
 \hline
 \end{tabular}
 \end{table}
-Knowing the results without a shell, a zirconium enclosing was added to reflect the neutrons back into the core to trigger further reactions. Looking at the values in tables \ref{tab:purezrv} and \ref{tab:purezrw}, the zirconium did not have any significant effect on the k-coefficients with the larger core. This does make sense since the metal allows neutrons to travel freely through it. However, for the first core, the coefficient decreased from 1.26 to 0.99284.
-%I have no idea why this happened....need to see again
+
+Knowing the results without a shell, a zirconium enclosing was added to reflect the neutrons back into the core to trigger further reactions. Looking at the values in tables \ref{tab:purezrv} and \ref{tab:purezrw}, the zirconium did not have any significant effect on the k-coefficients with the larger core. This does make sense since the metal allows neutrons to travel freely through it. However, for the first variation, the coefficient decreased from 1.26 to 0.99284. This is assumed to be a sampling error due to the number of cycles used.
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in water with zirconium shell}
@@ -55,6 +61,7 @@ Pure U-235  & 30               & Zirconium            & Water       & 1.76348   
 \hline
 \end{tabular}
 \end{table}
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in vacuum with zirconium shell}
@@ -71,7 +78,9 @@ Pure U-235  & 30               & Zirconium            & Vacuum       & 1.64499  
 \hline
 \end{tabular}
 \end{table}
+
 Generally, the zirconium shell had a negative impact on the criticality of the core. This is evidenced by the slightly increased k-coefficients seen in table \ref{tab:puregraphite}, where a graphite shell was used instead\footnote{Interestingly enough, MCNP was unable to normalize particle scattering for these simulations. As a result, the number of k-cycles, or samples, was doubled from 115 to 230 for these runs.}.
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in vacuum with graphite shell}
@@ -88,7 +97,9 @@ Pure U-235  & 30               & Graphite            & Vacuum       & 1.64367   
 \hline
 \end{tabular}
 \end{table}
-The results are even better with water acting as the transport medium in between the core and the shell, seen in table \ref{tab:puregraphitew}.
+
+The results are even better with water acting as the moderator, as seen in table \ref{tab:puregraphitew}.
+
 \begin{table}[!htbp]
 \centering
 \caption{Pure U-235 core in water with graphite shell}
@@ -105,9 +116,9 @@ Pure U-235  & 30               & Graphite            & Water       & 1.78865    
 \hline
 \end{tabular}
 \end{table}
-From the above tables, one can see that the optimum combination is to have the core submerged in water, with a graphite shell reflecting the neutrons back into the system.
 
-The issue with the above simulations is that the core is made up of pure U-235, which is weapons grade. Table \ref{tab:variations} shows tested combinations of size and enrichment levels to achieve the optimum k-coefficient of $k=1$.
+From the above tables, one can see that the optimum combination is to have the core submerged in water, with a graphite shell reflecting the neutrons back into the system. The issue with the above simulations is that the core is made up of pure U-235, which is weapons grade. Table \ref{tab:variations} shows tested combinations of size and enrichment levels to achieve the optimum k-coefficient of $k=1$.
+
 \begin{table}[!htbp]
 \centering
 \caption{Core size and enrichment variations}
@@ -132,4 +143,23 @@ U-238, 15\% enrichment & 30               & 1.06625      \\
 \hline
 \end{tabular}
 \end{table}
+
 To finalize the initial geometries, one more variable was looked at - the radius of the shell. In all simulations, this value did not affect the criticality, so the radius was decreased to $r=50cm$, which created for a more compact reactor chamber to work with. Since the radius has no effect on the criticality, the shell can be adjusted at will to reflect the neutrons more efficiently back into the core.
+
+\subsection{Reactor designs}
+Through the criticality results, the first design of the reactor is seen below, in figure \ref{fig:design1}. The improved, geometrically optimized reactor design is seen below that, in figure \ref{fig:design2}.
+\begin{figure}[!htbp]
+\caption{First reactor design.}
+\label{fig:design1}
+\centering
+\includegraphics[width=0.75\textwidth]{design.png}
+\end{figure}
+
+\begin{figure}[!htbp]
+\caption{Improved reactor design.}
+\label{fig:design2}
+\centering
+\includegraphics[width=0.85\textwidth]{design2.png}
+\end{figure}
+\subsection{Tallies}
+%Need math confirmation to finish this bit....

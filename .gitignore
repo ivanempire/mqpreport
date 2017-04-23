@@ -2,4 +2,7 @@
 *.log
 *.synctex.gz
 *.pdf
+*.lof
+*.lot
+*.toc
 code/
