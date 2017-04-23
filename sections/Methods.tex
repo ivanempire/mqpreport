@@ -1,77 +1,76 @@
 \label{sec:methods}
 \section{Methods and Materials}
 
-As stated before, two GOFR designs were created and simulated throughout the project. The first design was approached in a bottom-up fashion. This approach allowed for incremental structural changes to the reactor and allowed for the catching of errors in their early stages. Initially, the core size and composition was tested using MCNP criticality tests. After that, various moderating materials (substance that the core was submerged in) were looked at, followed by the material of the enclosing shell. Having finalize the criticality and general internal structure of the reactor, the beam port was added, as well as the FMESH tally, located inside the beam port. The second design was developed as an improvement of the first one, where approximate values of the core and its composition were known, however, geometry of the shell and core itself were adjusted. Although the underlying principles of both designs are similar, the materials used and final results vary significantly.
+GOPR was designed incrementally, slowly testing each improvement to the design at each step, to ensure the inner workings of the reactor were understood and minimizing errors in optimization.  Initially, core behavior and criticality in response to enrichment, core alloy material, and size where determined. After that, moderating materials and the interaction with the shell was tested and a rough design was decided upon, that was to be optimized. As a benchmark, a more conventional version was created that retained some of the concepts GOFR was intended to leverage for greater flux. In both, success was measured by a critical core and a FMESH tally located in the beam port of the reactor. A general geometry for GOFR was developed and coded into MCNP after signifigant geometric calculations and was changed only slightly after testing.
 
-\subsection{Design 1}
+\subsection{Core and Moderator}
 
-\subsection{Core}
+After considering several variations of reactors, initally GenIV power reactors and then various research sources, it was decided to use standard low enriched uranium (LEU), due to its characteristics of being well studied and relatively simple to refine and use. As a benchmark, 80\% enriched uranium was used, chosen to be under the weaponization threshold of 90\% but still highly enriched. This allowed for the comparision of designs by giving a clear goal for criticality and flux. Furthermore, LEU fuel of 20\% enrichment, and two half uranium and half alloy core compositions were tested. Initially, naked cores were tested to see the exact influence of size on the criticality and to further compare the improvements made by any additions. First was the moderating material, the material that encased the core and filled out the space between the core and the reflecting shell. It was not yet certain if the geometric approach would work, so a variety of moderators were examined. As seen in table \ref{tab:pure}, water was very good at reducing the energy of the neutrons enough to raise the criticality but would be a hinderance to the geometric approach as it relied on neutrons traveling largely undisturbed. For that purpose, aluminum performed well, only slightly altering the criticality. Vacuum, as seen in table \ref{tab:purevac}, performed the best in unaltering criticality as it showed no interaction with neutrons, which was a result used as another benchmark. These results are consistent with the data from NIST on neutron scattering lengths and were already largely factored into design considerations. These simulations are to confirm that the models and effects used in the design of GOFR were well founded in reality, using MCNP as a surrogate for reality.
 
-After considering several variations of breeder reactors, all of which were Thorium based, the element of choice for the core was Uranium-235. Due to safety concerns for real-life implementation, its purity could not be 100\%, however criticality calculations were carried at this level out to understand initial core sizes. For reference, anything above 90\% enrichment can be used as a weapon. The size of this pure Uranium core was adjusted multiple times to see the impact of the dimensions on the criticality. These first simulations did not account for a shell reflecting neutrons back into the core, nor did they look at the material inside the shell. The values were vague, however, painted the general picture of how large the core should be and how size impacts the criticality. The next step was to determine how the surrounding material affected the criticality of the core. As seen in table \ref{tab:pure},
-water had a better impact on the core's ability to fission than vacuum (results in table \ref{tab:purevac}).
+As a result of these simulations, it was decided that GOFR would use aluminum as the moderating filling and the conventional-style reactor would use water. The use of water in this case is consistent with the majority of research oriented reactors. Next was the shell material. A brief and oversimplified test of possible materials was done, in which a sphere of the reflector material was placed around the core and the criticality was compared. A thickness was arbitrarily chosen such that signifigant neutrons would not escape. Graphite was then chosen for further development, rather than beryillium, zirconium hydride, water, or heavy water for both criticality and geometric design considerations.
 
-Through these initial simulations, the core was to be surrounded in water for optimum criticality and neutron moderation. The next step was to vary the material of the shell, against which the neutrons would reflect. A thickness of $5cm$ was arbitrarily chosen to make sure the particles would not escape the chamber. Between zirconium and graphite, the latter performed better in reflecting the neutrons and sustaining the nuclear reactions. This was to be expected since zirconium is practically transparent to neutrons. This is seen by results of our simulations in tables \ref{tab:purezrw} and \ref{tab:puregraphitew}.
-
-The final step in the core design was to look at the enrichment percentage. Again, anything above 90\% is considered weapons grade and is extremely dangerous. Low-power reactors usually have enrichment percentages of 3\%-7\%, although some go as high as 20\%. Tables \ref{tab:variations} shows variations between the dimensions of the core and resulting criticalities. The final core design\footnote{For a full list of tables of reactivity values, see the results - section \ref{sec:results}.} was settled to be a cube, side length of $l=30cm$. The U-235 enrichment level would be 15\%, yielding a k-coefficient of $k=1.06625$.
+A rough volume to enrichment relationship, shown in table \ref{tab:variations}, was used to decide how enriched the uranium would be and still be critical. It was decided to adhere to the general standard of having sub-20\% enrichment to maximize flux while maintaining safety but did not go as low as some reactors do. Using this minimum volume of LEU, alloys and geometries could be explored without too much iteration in running MCNP code. For the conventional style reactor, a cube, side length of $1=30cm$, was used and its enrichment, 15\%, was determined by this value. For GOFR, a sphere made of 50\% uranium at just below the 20\% limit, 19.9\%, the radius had to be $r=25cm$ to achieve criticality upon introduction of the shell.\footnote{For a full listing of tables and results, see section \ref{sec:results}}
 
 \subsection{Shell}
 
-The surrounding shell and its geometry have several purposes in the reactor:
+The surrounding shell and its geometry has three purposes:
 
 \begin{enumerate}
-	\item Neutron reflection. The neutrons that are emitted from the core need to not be lost after one interaction. As a result, the surrounding shell's geometry was optimized to increase reflectivity of particles back into the core. The thermal neutrons will reflect off of the walls and be directed towards the core to trigger further fissions.
-	\item Thermal regulation. Any heat given off by the fission reactions needs to be transported out of the system to control the temperature. This is outside the scope of the project, however, some discussion is given in section \ref{sec:future}.
-	\item Particle interaction. This is a middle ground between the previous two purposes. The material that the core is submerged in plays an important role in particle interaction. Materials looked at were water, aluminum, graphite and vacuum.
+	\item Increasing criticality.
+	The generated neutrons that manage to escape the core do not need to be wasted. By sending more back into the core, the reactor can fission more than would be expected as if it was a larger, more intrinstically critical piece of uranium.
+	\item Neutron reflection.
+	The neutrons that are generated do not need to continue radiating isotropically. By biasing how neutrons travel in the reactor, more of the generated neutrons can pass through the beam port, giving off a flux much higher than a similarly powerful reactor.
+	\item Thermal regulation.
+	Any heat generated by the fission reactions in the core is transported out to the shell where it can be more easily regulated. The exact workings and optimizations for this are outside the scope of the project but some discussion is given in section \ref{sec:future}.
 \end{enumerate}
+
+\subsubsection{Increasing Criticality}
+
+Any material upon which neutrons scatter can be used for moderation and reflection to this end. The only requirements are that the core be surrounded and that there is no path out of the reactor, especially if scattering is elastic. As long as more neutrons hit the core that otherwise would not have, the criticality will increase, and even more neutrons will be produced.
 
 \subsubsection{Neutron reflection}
 
-An already existing example of reflection was taken into account when looking at the shell's neutron reflection capabilities - a parabolic dish. A ray diagram of how a parabolic reflector works can be seen in figure \ref{fig:parabola}.
+Neutrons do not behave like light and reflecting them is not as simple. However, with certain materials and angle, reflection is largely elastic and therefore reflected neutrons follow a general trajectory with a higher incidence along the central path. Therefore, neutrons will differ from light in terms of path mostly in a rather tight distribution around this central path. This general logic was used when designing GOFR.
+Initally, a parabolic reflector was considered as it is a common optical tool. It would take a radiant source located at the focal point and direct its now collimated beam foward. That would be perfect, if the reactor was small and the irradiation window was much larger, because it turns an isotropic source into a linear one and collimates the beam, as seen in figure \ref{fig:parabola}. Unfortunately, this would not fit the application. 
 
 \begin{figure}[!htbp]
-\caption{Parabolic reflector.}
+\caption{Parabolic reflector}
 \label{fig:parabola}
 \centering
 \includegraphics[width=0.75\textwidth]{parabola.png}
 \end{figure}
 
-From this, a circular design of the shell was implemented for initial simulations, with the reactor core in the middle. However, looking at the structure presented in figure \ref{fig:structure}, a problem arose when directing neutrons.
+Next a sphere was considered, as its surface is perfectly perpendicular at every radial line and that is exactly the use case with increasing criticality. However, this does nothing to promote a mass exodus of neutrons and creating a high flux beam. This is where the development of the conventional reactor essentially ended. In the conventional reactor, the core was placed against one side of the shell and the beam port where the core met the shell. This allowed for most of the generated neutrons to support continuing fission while a signifigant amount were shuttled out of the reactor, as seen in figure \ref{fig:structure}.
 
 \begin{figure}[!htbp]
-\caption{Core and shell structures.}
+\caption{Core and shell structures of Conventional Reactor}
 \label{fig:structure}
 \centering
 \includegraphics[width=0.75\textwidth]{structure.png}
 \end{figure}
 
-Neutrons that are to be used in research would be extremely difficult to direct towards an opening. Whatever added directing structure  would interfere with the parabolic reflective properties. As a result, a decision was made to move the core to one edge of the shell, seen under "Adjusted structure" in figure \ref{fig:structure}.
+For GOFR, it seemed that the answer was in the geometry of the reflector. To that end, an ellipsoidal reflector was developed, the size and shape based upon data from the tests on the core composition. An ellipsoid has two focal points, and anything radiating isotropically from one, irraditates the other perfectly uniformly, as seen in figure \ref{fig:ellipsoid}.
+
+\begin{figure}[!htbp]
+\caption{Ellipsoidal reflector}
+\label{fig:ellipsoid}
+\centering
+\includegraphics[width=0.75\textwidth]{ellipsoidal.png}
+\end{figure}
+
+Since the aim was to maximize neutrons leaving the reactor, an ellipsoidal shell was not the entire solution. To accomplish that, a conical reflector was fitted to the midpoint of the ellipsoid, its surface angle matching the path of any neutrons that reflect off of the ellipsoidal reflector at the junction of the two surfaces. This ensured that the focal point of the neutron radiation was inside the beam port, ensuring that the majority of the generated neutrons would escape the reactor. The conical reflector further ensured that enough neutrons would return to the core by acting as a conventional reflector. This geometric concept is illustrated in figure \ref{fig:design02}.
+
+\begin{figure}[!htbp]
+\caption{GOFR concept design}
+\label{fig:design02}
+\centering
+\includegraphics[width=0.75\textwidth]{design-02.png}
+\end{figure}
 
 \subsubsection{Particle interaction}
 
-Several materials were looked at with which to fill the shell around the core. These were water, aluminum, graphite and vacuum. For the first design, water was used for several reasons. Vacuum and graphite would not moderate the neutrons at all, hence failing to help trigger further reactions. Aluminum was not yet looked at in detail due to concerns with thermal dissipation. Alongside this, using water yielded a criticality coefficient of $k=1.06625$, which was ideal for sustaining the fission reactions.
+Thermal regulation is outside the scope of this project but aluminum conducts heat very well and would conduct heat away from the core and deposit it in the shell, where coolant can be pumped on or through the shell. This allows the core to function at higher wattage without damage and thus create higher neutron flux. By running water over the shell's surface and through cavities or pipes inside the shell, heat can be extracted efficently. More discussion is given in section \ref{sec:future}.
 
-\subsection{Chamber}
+\subsection{Beam Port and Tally}
 
-With the core shifted to the side of the enclosing shell and all materials chosen, it was now possible to add the neutron chamber, or beam port. One side of the core's structure would be directly exposed to the chamber. As a result, the neutrons produced on that side would be emitted directly for flux calculations and use. The other 5 sides of the rectangular core structure would be fueling the fission reactions through the emission and reflection of thermal neutrons within the shell itself. The cross section of the chamber is 30x30cm in order to capture all particles emitted from one face of the core.
-
-\begin{figure}[!htbp]
-\caption{Shell, core, chamber structure.}
-\label{fig:chamber}
-\centering
-\includegraphics[width=0.75\textwidth]{chamber.png}
-\end{figure}
-
-The placement of the core reduces particle leak, however, due to the nature of the geometry (cube placed against a spherical surface), some neutrons may leak back into the shell. The flux lost due to this is negligible since the returned neutrons will fuel further fission reactions after being reflected back into the core by the shell. The structure of the shell, core and neutron chamber can be seen in figure \ref{fig:chamber}. 
-
-\subsection{Tally}
-
-Naturally, the neutron flux tally will be carried out in the chamber. Due to the fact that the primary particles are emitted directly into the beam port, the distance at which the tally is run is not as important in this design as it is in the next. The location was chosen to be 5cm out from the opening of the beam port.
-
-\subsection{Design 2}
-
-The second design stemmed from the first one. Since a general understanding of material compositions and particle behavior was known now (mainly the core size, tally location etc.), these properties were optimized further. Aluminum was looked at as another material to fill the space around the core with. It proved to moderate the neutrons in a better fashion than water. Instead of interacting with them directly and changing their trajectories, they were able to follow their initial courses more often than not. As a result, the optical properties of the reflector were more pertinent here than in the initial design.
-
-Through this, the next adjustment was made - the focal point. An optical reflector has a point where all of the rays are focused into one. This concept was applied to the neutron beams. As a result, the tally was placed as this location - the location of the focal point. Because of this, the maximum flux value was doubled as all of the particles were concentrated into a much smaller area in the tally (as opposed to being sent fairly uniformly through the complete volumetric tally).
-
-In order to fully take advantage of the optical properties, however, overall shell geometry was adjusted as well. Instead of being an actual sphere, the shape resembles an ellipsoid. The rest of the shell's walls converge on the beam port in order to help facilitate the movement of neutrons towards the focal point. Finally, in order to better resemble an isotropic source, the shape of the core was changed to a sphere, with a radius of $r=25cm$. To account for the changes in geometry, the enrichment of the core was increased to 19.9\%. Alongside this, it was alloyed with Zirconium Hydride, $ZrH_4$. Final diagram and example particle paths can be seen in the results - section \ref{sec:results}.
-
+In both designs, the neutrons were directed towards the beam port, a hole in the shell in which a collimator can be inserted. The raw beam was recorded and analyzed by means of a FMESH tally, which counted the neutrons passing through the beam port and their direction. From this, the beam behavior and raw flux can be calculated. This can then be compared to existing sources and the feasibility of this design can be ascertained and gauged.
