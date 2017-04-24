@@ -11,7 +11,7 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 - [x] Introduction  
 - [x] MCNP   
 - [x] Methods  
-- [ ] Results  
-- [ ] Conclusion  
-- [ ] Further work  
+- [x] Results  
+- [x] Conclusion  
+- [x] Further work  
 - [ ] Appendix  
