@@ -1,33 +1,32 @@
 \label{sec:mcnp}
 \section{MCNP}
 \subsection{General information}
-MCNP is built on Fortran, specifically Fortran-90, as it takes time to vet and confirm compatibility with the extensive libraries of MCNP. The basic programming principle is similar to that of punch cards: a program is split into several blocks, where various aspects of a simulation are defined. The first block defines cells, the second one defines surfaces, finally, the last block defines what simulations MCNP is supposed to run. An example MCNP program structure can be seen in figure \ref{fig:program}. The blocks are separated by blank lines, which are required for MCNP to properly read in the file. If the lines are omitted, then the definitions will not be seen correctly. Comments can be added to the input files as well. A full line comment starts with the letter "c", whilst an inline comment starts with a dollar sign (\$). It is important to note that all lines should not exceed 80 characters in length.
+MCNP is built on Fortran, specifically Fortran-90, as it takes time to vet and confirm compatibility with the extensive libraries of MCNP. The basic programming principle is similar to that of punch cards: a program is split into several blocks, where various aspects of a simulation are defined. The first block defines cells, the second one defines surfaces, finally, the last block defines what simulations MCNP is supposed to run. An example MCNP program structure can be seen in Figure \ref{fig:program}. The blocks are separated by blank lines, which are required for MCNP to properly read in the file. If the lines are omitted, then the definitions will not be seen correctly. Comments can be added to the input files as well. A full line comment starts with the letter "c", whilst an inline comment starts with a dollar sign (\$). It is important to note that all lines should not exceed 80 characters in length.
 
 \begin{figure}[!htbp]
-\caption{MCNP program structure.}
-\label{fig:program}
 \centering
 \includegraphics[width=0.5\textwidth]{prog.png}
+\caption{MCNP program structure.}
+\label{fig:program}
 \end{figure}
 
-MCNP programs contain definitions for geometries in a 3D dimensional Cartesian coordinate system. A good way to look at cells, surfaces and their material definitions is the following. In figure \ref{fig:regions}, A and B are two surfaces. Each surface has a negative and positive value, which is important for particle interactions. If a value is negative, then the surface is facing inwards relative to the origin. The mathematical depiction can be seen in figure \ref{fig:planes}, where the normal vector $n_2$ is expressed by a negative surface number, whilst the vector $n_1$ is a positive surface number.
+MCNP programs contain definitions for geometries in a 3D dimensional Cartesian coordinate system. A good way to look at cells, surfaces and their material definitions is the following. In Figure \ref{fig:regions}, A and B are two surfaces. Each surface has a negative and positive value, which is important for particle interactions. If a value is negative, then the surface is facing inwards relative to the origin. The mathematical depiction can be seen in Figure \ref{fig:planes}, where the normal vector $n_2$ is expressed by a negative surface number, whilst the vector $n_1$ is a positive surface number.
 
 \begin{figure}[!htbp]
-\caption{Normal vectors to a plane.}
-\label{fig:planes}
-\centering
-\includegraphics[width=0.25\textwidth]{normals.png}
-\end{figure}
-
-Surfaces can be combined together to create cells. Defined as either unions or intersections, the resulting cells from surfaces A and B are seen in figure \ref{fig:regions}. An important MCNP concept to remember is that when looking at a typical geometrical shape, for example a cube, one must double the number of faces. In a cube, the number of faces is 6, however, because of positive and negative surfaces, the shape should be looked at as having 12 faces\footnote{Similarly, a sphere will have 2 surfaces - an inner one and an outer one.}. Understanding this was a key point in the project. Being able to identify which regions were required and which surfaces to ignore allowed us to carry out simulations more effectively and accurately.
-
-\begin{figure}[!htbp]
-\caption{Example MCNP regions.}
-\label{fig:regions}
 \centering
 \includegraphics[width=0.75\textwidth]{regions.png}
+\caption{Example MCNP regions.}
+\label{fig:regions}
 \end{figure}
 
+Surfaces can be combined together to create cells. Defined as either unions or intersections, the resulting cells from surfaces A and B are seen in Figure \ref{fig:regions}. An important MCNP concept to remember is that when looking at a typical geometrical shape, for example a cube, one must double the number of faces. In a cube, the number of faces is 6, however, because of positive and negative surfaces, the shape should be looked at as having 12 faces\footnote{Similarly, a sphere will have 2 surfaces - an inner one and an outer one.}. Understanding this was a key point in the project. Being able to identify which regions were required and which surfaces to ignore allowed us to carry out simulations more effectively and accurately.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.25\textwidth]{normals.png}
+\caption{Normal vectors to a plane.}
+\label{fig:planes}
+\end{figure}
 \subsection{Example geometry}
 
 A good way to understand MCNP syntax and its complexity is a simple example. For this, a graphite cube will be submerged into a spherical container and that container will be filled with water. Throughout the project, it was found that specifying surfaces first was an easier approach, followed by the cell definitions. The input file was structured out of order, however, this allowed for a more step-by-step approach to the simulation setup. In order to create a cube, the procedure is the following:
@@ -38,7 +37,7 @@ A good way to understand MCNP syntax and its complexity is a simple example. For
 	\item Combine all of the relevant surfaces into a cell. Here, the outside of the cube would be a union of the outward facing surfaces, and the inside will be a union of the inward facing ones.
 \end{enumerate}
 
-Although this is only 3 steps, the procedure is fairly complex. In order to specify a single surface, one must figure out the side length, center and boundaries of the square in question. Doing this 12 times becomes monotone and challenging, especially when dealing with complex, irregular geometries. MCNP does have a solution, however - macrobodies. With one command, MCNP will know that the shape specified is a cube, sphere or pyramid, to name a few. The command for a rectangular parallelepiped is \textbf{RPP}. In order to create a cube centered at the origin with a side length of $10$cm, the command is:
+Although this is only 3 steps, the procedure is fairly complex. In order to specify a single surface, one must figure out the side length, center and boundaries of the square in question. Doing this specification 12 times becomes monotone and challenging, especially when dealing with complex, irregular geometries. MCNP does have a solution, however - macrobodies. With one command, MCNP will know that the shape specified is a cube, sphere or pyramid, to name a few. The command for a rectangular parallelepiped is \textbf{RPP}. In order to create a cube centered at the origin with a side length of $10$cm, the command is:
 
 \begin{center}
 \begin{tabular}{c}
@@ -109,7 +108,7 @@ The setup is the same as for the previous cell - its label is 2, M1 is used for 
 \end{tabular}
 \end{center}
 
-The setup is complete and the full file can be found in Appendix 1. Assuming you have saved the file as \textbf{example.txt}, there are several ways to run the program. The commands depend on your operating system, but primarily the version of MCNP used:
+The setup is complete and the full file can be found in Appendix 1. Assuming the code is saved in the file \textbf{example.txt}, there are several ways to run the program. The commands depend on your operating system, but primarily the version of MCNP used:
 
 \begin{center}
 \begin{tabular}{c}
@@ -137,7 +136,7 @@ kcode 1000  1.0  15 115
 \end{tabular}
 \end{center}
 
-The above line indicates that 1000 particles will be looked at to attempt to obtain a criticality value of 1, with 115 samples and 15 cycles per sample. The only thing left to do is to specify the source of the reactions, in this case the origin:
+The above line indicates that 1000 particles will be looked at to attempt to obtain a criticality value of 1, with 115 samples and 15 cycles per sample. The only step left to do is to specify the source of the reactions, in this case the origin:
 
 \begin{center}
 \begin{tabular}{c}
@@ -151,13 +150,13 @@ The k-code will emit particles from the source into a random direction and see i
 
 \textbf{FMESH tally}\\
 
-The second type of simulations run on the GOFR was an FMESH tally. A tally in MCNP is a counting mechanism for the number of particles that will pass through a certain region over the course of the whole simulation. The units are MeV/cm$^2$, and for this project the neutrons were counted only, using a special variation of an MCNP tally - the FMESH\footnote{There are a total of 11 types of tallies available in MCNP, all of which are listed in the manual or the primer.}. In order to count the particles in an FMESH, one must specify its dimensions, as well as the bins, which will count the particles themselves. A good way to think about such a tally is a Lego Block, an example one seen in figure \ref{fig:lego}.
+The second type of simulations run on the GOFR was an FMESH tally. A tally in MCNP is a counting mechanism for the number of particles that will pass through a certain region over the course of the whole simulation. The units are MeV/cm$^2$, and for this project the neutrons were counted only, using a special variation of an MCNP tally - the FMESH\footnote{There are a total of 11 types of tallies available in MCNP, all of which are listed in the manual or the primer.}. In order to count the particles in an FMESH, one must specify its dimensions, as well as the bins, which will count the particles themselves. A good way to think about such a tally is a Lego Block, an example one seen in Figure \ref{fig:lego}.
 
 \begin{figure}[!htbp]
-\caption{Mesh tallies can be thought of as Lego blocks.}
-\label{fig:lego}
 \centering
 \includegraphics[width=0.25\textwidth]{lego.png}
+\caption{Mesh tallies can be thought of as Lego blocks.}
+\label{fig:lego}
 \end{figure}
 
 The block itself, most of which are rectangular, is the tally. It is defined in 3 dimensions, again with x, y and z coordinates. The connectors that link up the Lego blocks are the bins, where the particles will actually be counted. The sizes and positions of these bins must also be specified. An example FMESH tally is defined below:
