@@ -7,7 +7,7 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 
 ## Outline draft
 
-- [ ] Abstract  
+- [x] Abstract  
 - [x] Introduction  
 - [x] MCNP  
 - [x] Methods  
@@ -21,4 +21,5 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 - [x] Figure captions
 - [x] New page for each chapter
 - [x] Capitalize figure/table words
-- [] Results graphs
+- [x] Page numbers
+- [x] Results graphs
