@@ -1,7 +1,7 @@
 # MQP Report
 The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan Jilani.
 
-- [x] Cover page    
+- [x] Cover page  
 - [x] Table of contents  
 - [ ] Bibliography  
 
@@ -18,11 +18,8 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 
 ## Revisions
 
-- [x] Figure captions
-- [x] New page for each chapter
-- [x] Capitalize figure/table words
-<<<<<<< Updated upstream
-- [x] Page numbers
-=======
->>>>>>> Stashed changes
+- [x] Figure captions  
+- [x] New page for each chapter  
+- [x] Capitalize figure/table words  
+- [x] Page numbers  
 - [x] Results graphs
