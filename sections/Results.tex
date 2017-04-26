@@ -3,7 +3,7 @@
 
 \subsection{Criticalities}
 
-The main goal of GOFR was to test the feasibility of a geometric approach to research reactors and to fit the resultant reactor into the size of a room. This dimensional criteria was where calculations started. Various sizes of cubes, for ease of visualisation, were tested, to get a sense of how criticality scaled with size and how large the final core would be. From the below table, it is seen that criticality rises linearly with volume. Since a self sustaining reaction requires a k-coefficent of $k=1$ that is what was tested for. It also shows the maximum moderated potential of each core because the many meters of water completely stopped all neutron activity outside its bounds.
+The main goal of GOFR was to test the feasibility of a geometric approach to research reactors and to fit the resultant reactor into the size of a room. This dimensional criteria was where calculations started. Various sizes of cubes, for ease of visualization, were tested, to get a sense of how criticality scaled with size and how large the final core would be. From the below table, it is seen that criticality rises linearly with volume. Since a self sustaining reaction requires a k-coefficient of $k=1$ that is what was tested for. It also shows the maximum moderated potential of each core because the many meters of water completely stopped all neutron activity outside its bounds.
 
 \begin{table}[!htbp]
 \centering
@@ -28,7 +28,7 @@ U-235  		& 27000             & Water     & 1.76348     \\
 \end{tabular}
 \end{table}
 
-Table \ref{tab:pureU} suggests that a volume greater than a thousand cube centimeters of U-235 is needed for sustained fission, unless heavily moderated, but eight thousand is excessive. This provides a good place to start experimentation with lower enrichments and different alloys. First, a conventionally designed reactor was designed, to provide an initial criticality and flux value. Different core sizes and enrichments were tried, submerged in water, in a graphite flask. A 15\% enriched uranium core of 30 square centimeters was decided upon.
+Table \ref{tab:pureU} suggests that a volume greater than a thousand cube centimeters of U-235 is needed for sustained fission, unless heavily moderated, but eight thousand is excessive. These initial results provide a good place to start experimenting with lower enrichments and different alloys. First, a conventionally designed reactor was designed, to provide an initial criticality and flux value. Different core sizes and enrichments were tried, submerged in water, in a graphite flask. A 15\% enriched uranium core of 30 square centimeters was decided upon.
 
 \begin{table}[!htbp]
 \centering
@@ -98,7 +98,7 @@ UAl 			&  418.87           & 0.34051       \\
 \end{tabular}
 \end{table}
 
-The scattering lengths of various moderator materials was studied and it was determined that aluminum would have the smallest interaction with the neutrons while if scatter occurred, it would be elastic. Criticality rose more than expected with the addition of the aluminum moderator in table \ref{tab:kmod}. There also seems to be a growing disparity between UAl and $UZrH_4$, which is a positive indication of the passive safety features from using $UZrH_4$.
+The scattering lengths of various moderator materials was studied and it was determined that aluminum would have the smallest interaction with the neutrons while if scatter occurred, it would be elastic. Criticality rose more than expected with the addition of the aluminum moderator in Table \ref{tab:kmod}. There also seems to be a growing disparity between UAl and $UZrH_4$, which is a positive indication of the passive safety features from using $UZrH_4$.
 
 \begin{table}[!htbp]
 \centering
@@ -125,13 +125,13 @@ It was at this point the GOFR shell design was completed confirmed to be, at lea
 
 \begin{table}[!htbp]
 \centering
-\caption{Flux comparision}
+\caption{Flux comparison}
 \label{tab:flux}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Reactor			& Average Flux ($n/cm^2$)		& Maximum Flux ($n/cm^2$) & Beam Area ($cm^2$) \\
 \hline
-Umass Lowell FNI  	        & $1.390*10^11$           & $9.200*10^12$   &  900		\\
+UMass Lowell FNI  	        & $1.390*10^11$           & $9.200*10^12$   &  900		\\
 \hline
 Graphite Flask				& $8.877*10^12$           & $1.692*10^13$   &  900		\\
 \hline
@@ -140,37 +140,37 @@ GOFR Design 				& $1.963*10^13$           & $5.048*10^13$   & 1963		\\
 \end{tabular}
 \end{table}
 
-The two reactors had higher flux than the Lowell Research Reactor, as seen in table \ref{tab:flux}. These values were calculated for a reactor operating at a power level of 1 MW. Each fission of U-235 releases 202.5 MeV of energy, so by dividing a megawatt by that value, it returns the fissions per second. Each fission results in 2.4 neutrons released on average so multiplying the number of fissions by the average number of generated neutrons per fission returns the total neutrons generated each second in the reactor core. After summing the neutrons that passed through the beam port and dividing by the total neutrons generated in that simulation, a ratio is obtained that indicated the number of neutrons that enter the beam port for every generated neutron. Applying that to the number of neutrons generated each second in the core returns an absolute number of neutrons that will pass through the beam port every second. Dividing that by the cross sectional area of the beam port results in the flux of the reactor. Thus, the flux was obtained and listed in table \ref{tab:flux}.\\
+The two reactors had higher flux than the Lowell Research Reactor, as seen in Table \ref{tab:flux}. These values were calculated for a reactor operating at a power level of 1 MW. Each fission of U-235 releases 202.5 MeV of energy, so by dividing a megawatt by that value, it returns the fissions per second. Each fission results in 2.4 neutrons released on average so multiplying the number of fissions by the average number of generated neutrons per fission returns the total neutrons generated each second in the reactor core. After summing the neutrons that passed through the beam port and dividing by the total neutrons generated in that simulation, a ratio is obtained that indicated the number of neutrons that enter the beam port for every generated neutron. Applying that to the number of neutrons generated each second in the core returns an absolute number of neutrons that will pass through the beam port every second. Dividing that by the cross sectional area of the beam port results in the flux of the reactor. Thus, the flux was obtained and listed in Table \ref{tab:flux}.\\
 
 \begin{figure}[!htbp]
-\caption{GOFR neutron flux distribution}
-\label{fig:GOFR-spec}
 \centering
 \includegraphics[width=0.75\textwidth]{GOFR_spectrum.png}
+\caption{GOFR neutron flux distribution}
+\label{fig:GOFR-spec}
 \end{figure}
 
 \begin{figure}[!htbp]
-\caption{Conventional reactor neutron flux distribution}
-\label{fig:water-spec}
 \centering
 \includegraphics[width=0.85\textwidth]{water_spectrum.png}
+\caption{Conventional reactor neutron flux distribution}
+\label{fig:water-spec}
 \end{figure}
 
-The beam intensity is characterized and shown visually in figure \ref{fig:GOFR-spec} and figure \ref{fig:water-spec}, of GOFR and the conventional reactor. This shows that, in addition to having a higher flux, GOFR also has a more uniformly distributed neutron flux, and bigger beam, when compared to the conventional reactor.
+The beam intensity is characterized and shown visually in Figure \ref{fig:GOFR-spec} and Figure \ref{fig:water-spec}, of GOFR and the conventional reactor. This shows that, in addition to having a higher flux, GOFR also has a more uniformly distributed neutron flux, and bigger beam, when compared to the conventional reactor.
 
 \subsection{Reactor designs}
-The conventional reactor, the graphite flask of water, design is shown below in figure \ref{fig:design1}. GOFR, the novel reactor design that was geometrically optimized for high neutron flux is seen below that, in figure \ref{fig:design2}.
+The conventional reactor, the graphite flask of water, design is shown below in Figure \ref{fig:design1}. GOFR, the novel reactor design that was geometrically optimized for high neutron flux is seen below that, in Figure \ref{fig:design2}.
 
 \begin{figure}[!htbp]
-\caption{Conventional graphite flask design}
-\label{fig:design1}
 \centering
 \includegraphics[width=0.75\textwidth]{design.png}
+\caption{Conventional graphite flask design}
+\label{fig:design1}
 \end{figure}
 
 \begin{figure}[!htbp]
-\caption{GOFR design}
-\label{fig:design2}
 \centering
 \includegraphics[width=0.85\textwidth]{design-02.png}
+\caption{GOFR design}
+\label{fig:design2}
 \end{figure}

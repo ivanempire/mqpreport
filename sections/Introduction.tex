@@ -26,17 +26,20 @@ Neutron imaging, in general, has most of the positive aspects of the aforementio
 
 \subsection{Neutron Production}
 
-There are three main approaches to neutron production, each with their trade-offs. Most largescale neutron research is done with spallation sources or nuclear reactors modified for the purpose of neutron emission, rather than power generation. Fusion neutron sources are currently used in commercial applications where a cheap, low power neutron source is needed.
+There are three main approaches to neutron production, each with their trade-offs. Most large-scale neutron research is done with spallation sources or nuclear reactors modified for the purpose of neutron emission, rather than power generation. Fusion neutron sources are currently used in commercial applications where a cheap, low power neutron source is needed.
 
 \subsubsection{Common Techniques}
 
 \paragraph{Fusion}
+
 In a neutron generator that utilizes fusion, an ionized hydrogen isotope collides with another isotope, releasing neutrons as it fuses into helium. This process is either done with a sealed neutron tube or a fusor. A sealed neutron tube does this with a deuterium gas that is ionized and accelerated towards a tritium infused hydride by means of a differential electric field in a vacuum tube. A fusor, a variant of an inertial electrostatic confinement (IEC) fusion device, accelerates ionized deuterium into the center of the device by means of two concentric rings that create an electric field between them on the order of four kilovolts. Fusion occurs when the ions collide but the ionization method is not strictly defined. All that either of these require is an electric current to be provided. The neutron tube will function until the hydride is depleted but there are ways to replenish the hydride. These produce neutrons but the fluxes are not very high. Fusion on a larger scale may one day provide the highest neutron flux yet but that is not yet viable. The reality of fusion as a neutron source today is that it is a small scale neutron generator.
 
 \paragraph{Spallation}
+
 Spallation is a much more widely used method of producing neutrons. The general concept is accelerating a proton in a particle accelerator and hitting a spallation target. This target is a large, heavy metal target, typically lead or mercury. This process degrades the target and it must be replenished. This is not the most efficient way to generate neutrons and is rather large but this neutron source can be turned on and off with great ease. The fluxes are comparable to some reactors and the SINQ facility has achieved continuous beam output from spallation. These are generally large facilities and users can apply for beam time. Despite having good beam characteristics and a wide range of neutron energies, the size and cost of such installations is prohibitive for many scientists and the institutions they belong to.
 
 \paragraph{Reactors}
+
 Nuclear reactors are the conventional way to produce neutron flux. Critical nuclear reactions generate and capture enough neutrons to ensure the reaction continues until outside intervention. However, not all neutrons that are produced end up colliding with another nucleus. The ones that escape the core are free to radiate outward until they are captured or scattered. The likelihood of a neutron being captured is inversely proportional to the energy of the neutron which means that more energetic neutrons must be moderated in order to maximize fission and thus wattage. Moderation is the process of reducing the energy level of neutrons, usually by absorbing kinetic energy as the neutrons scatter. Current research reactor designs moderate the entirety of the output of the core and redirect most of the flux back into the core by means of reflectors, which are thick crystalline moderators with the express purpose of redirecting neutrons. The neutrons are moderated further as they leave the reactor core, generally in a collimator connected to the beam port. Liquid helium is a popular coolant for the collimator but most research reactor cores are cooled by light water. Most of the recent advancements in research reactor technology are in new safety features built into the core design, switching to low enriched uranium fuel (LEU), and converting power reactors into research reactors. This conversion process is rather difficult because of the wild disparity in design considerations but this has been achieved in some facilities.
 
 \subsubsection{Research Reactors Today}
@@ -57,29 +60,36 @@ This project aims to offer a direction of design when creating a neutron source 
 
 \subsubsection{Design}
 
-The primary guiding motivation for the design decisions was to maximize the neutron flux of the beam. This meant both operating at a higher wattage, by increasing the amount of fissions per second, and getting neutrons through the beam port. Barring adding more fuel, the way to increase the wattage was to facilitate more neutron capture. To that end, reflectors would be placed around the core, to ensure the neutron path would encounter fissile nuclei, and neutrons would be moderated, to ensure neutrons were readily captured. Ensuring that neutrons made it out of the core and into the beam port seemed like a geometric issue, so the shape of the reflectors was altered to impart a radial forward bias in the distribution of neutrons using a ellipsoidal reflector, while ensuring enough neutrons return to the core with the use of a retarding surface. To allow for the neutrons reflecting off of the ellipsoidal reflector to make it to the beam port without being absorbed, they need to be fast or miss the fissile material. This design uses both techniques. The neutrons reflected off of the ellipsoidal reflector miss the core due to the neutron transparent space, composed of aluminum, between the core and the reflector. Between the retarding surface and the core, there is an additional moderating material alloyed with the aluminum and zirconium hydride, to ensure that the retarded neutrons were thermalized enough to guarantee fission. Directly behind the core, the ellipsoidal reflector ensures that the neutrons reflect through the core. With tuning of the ratios of these surfaces, a higher neutron flux can be achieved while still maintaining adequate criticality for any size core. From this principle of optimising the geometry for the highest neutron flux, the name of the design, Geometrically Optimised Flux Reactor (GOFR), was chosen.
+The primary guiding motivation for the design decisions was to maximize the neutron flux of the beam. This meant both operating at a higher wattage, by increasing the amount of fissions per second, and getting neutrons through the beam port. Barring adding more fuel, the way to increase the wattage was to facilitate more neutron capture. To that end, reflectors would be placed around the core, to ensure the neutron path would encounter fissile nuclei, and neutrons would be moderated, to ensure neutrons were readily captured. Ensuring that neutrons made it out of the core and into the beam port seemed like a geometric issue, so the shape of the reflectors was altered to impart a radial forward bias in the distribution of neutrons using a ellipsoidal reflector, while ensuring enough neutrons return to the core with the use of a retarding surface. To allow for the neutrons reflecting off of the ellipsoidal reflector to make it to the beam port without being absorbed, they need to be fast or miss the fissile material. This design uses both techniques. The neutrons reflected off of the ellipsoidal reflector miss the core due to the neutron transparent space, composed of aluminum, between the core and the reflector. Between the retarding surface and the core, there is an additional moderating material alloyed with the aluminum and zirconium hydride, to ensure that the retarded neutrons were thermalized enough to guarantee fission. Directly behind the core, the ellipsoidal reflector ensures that the neutrons reflect through the core. With tuning of the ratios of these surfaces, a higher neutron flux can be achieved while still maintaining adequate criticality for any size core. From this principle of optimizing the geometry for the highest neutron flux, the name of the design, Geometrically Optimized Flux Reactor (GOFR), was chosen.
 
 
 \subsubsection{Monte Carlo Simulations}
 
 In order to test the effectiveness of the novel design, Monte Carlo simulations were used. Said simulations rely on the principle of random sampling, and hence are extremely useful for investigating large population behaviors. Random sampling, or dart throwing, attempts to simulate particle interactions in a probabilistic manner. At the start, a neutron is launched at a random direction, with a random speed consistent with its energy distribution. When this neutron collides with another particle, the interaction is again modeled randomly. A good graphical explanation of a sample particle simulation can be seen in Figure \ref{fig:randomwalk}.
+
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{walkE.png}
 \caption{MCNP random walk.}
 \label{fig:randomwalk}
 \end{figure}
+
 For example, the collision angle and change of speeds will be different at every simulation run. The underlying assumption here is that eventually, after many samples (on the order of magnitude of 100,000) the results will converge to the actual value. Another way to look at this is a coin toss problem. If one tosses a coin, it's evident that the probability of getting a head is the same as of getting a tail - 50\%. However, after 10 tosses, the coin may not have landed on its head 5 times and on its tail 5 times. However, as one starts tossing the coin 100 times, or 1,000 times, the results will distribute themselves more evenly - converging towards the 50-50 split of heads and tails. This is the exact same approach used in Monte Carlo simulations. Encompassing these random samples and properties of various materials is MCNP, or Monte Carlo N-Particle Transport Code.
 
 \subsubsection{MCNP}
+
 The Monte Carlo N-Particle Transport Code was developed by the Los Alamos National Laboratory in the 1950s. Primarily, it is used to simulate nuclear processes, such a fission. Other applications It is ideal for this project since the main reaction used is fission in the novel reactor. There have been several versions of MCNP released over the years, with further improvements to its vast materials library. The library contains information of physical properties like melting and boiling points of materials, as well as more advanced aspects like neutron capturing properties and atomic cross sectional areas. Version 5.1 and X were used for the design and simulation of the Geometrically Optimized Flux Reactor (GOFR). In order to simulate any particle interactions, MCNP solves the Boltzmann transport equation, defined as:
+
 \begin{equation}
 \Psi(\vec{r},\vec{v}) = \int\Big(\int\Psi(\vec{r'},\vec{v'})C(\vec{v'}\rightarrow \vec{v},\vec{r'})d\vec{v'} + Q(\vec{r'},\vec{v})\Big)T(\vec{r'}\rightarrow \vec{r},\vec{v})d\vec{r'}
 \end{equation}
+
 The $\Psi(\vec{r},\vec{v})$ term defines the collision density of particles across the whole simulation space. The $C$ is called the collision kernel, which accounts for particles changing their velocity at a given location. The $T$ term, on the other hand, is the transport kernel and accounts for the opposite case - a particle changing its location at a given velocity. The $Q$ term is the source of particles. In the case of GOFR, the term is defined as:
+
 \begin{equation}
 Q(r,v) = S(\vec{r},\vec{v}) + \int\Psi(\vec{r},\vec{v'})F(\vec{v'}\rightarrow \vec{v},\vec{r})d\vec{v'}
 \end{equation}
+
 $S$ defines the fact that the source is stationary, and that the primary particles will be emitted from a fixed point in the simulation space. The collision density term accounts for the fact that the core will be undergoing fission, defined as $F$. What makes MCNP so powerful is the simultaneous use of the collision and transport kernels. Taking both factors into account allows the simulation to look at particles that change velocity and direction at any point in the simulation space. Every interaction that a particle has with another particle is stored in the simulation memory. The states of the particles - energy, velocity, direction - are saved in order to extrapolate results and determine the convergence. The flow diagram in Figure \ref{fig:randomwalk}, can also be seen in terms of particle histories, seen in Figure \ref{fig:histories}.
 
 \begin{figure}[!htbp]
@@ -88,10 +98,13 @@ $S$ defines the fact that the source is stationary, and that the primary particl
 \caption{Particle interaction histories.}
 \label{fig:histories}
 \end{figure}
+
 With the histories, MCNP is able to extrapolate where the particles will end up after future runs and what their energies will be. The final results are defined in the following way:
+
 \begin{equation*}
 A = \int A(p)\Psi(p)dp \approx \frac{1}{M}\sum_{m=1}^M\Big(\sum_{k=1}^\infty A(p_{k,m})\Big)
 \end{equation*}
+
 The final, average state of the particle is the integral of the product between the collision density and the particle states. The integral can be estimated through a classic Riemann sum, where $M$ is the number of particle histories and samples. The larger the value of $M$, the more accurate the final results are. 
 
 Through the extensive calculations that MCNP carries out, the decades of development put into it, as well as its ability to take into account all physical properties of materials used, the software package proved ideal for the design and simulation of the Geometrically Optimized Flux Reactor (GOFR).
