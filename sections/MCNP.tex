@@ -1,5 +1,6 @@
-\label{sec:mcnp}
 \section{MCNP}
+\label{sec:mcnp}
+
 \subsection{General information}
 MCNP is built on Fortran, specifically Fortran-90, as it takes time to vet and confirm compatibility with the extensive libraries of MCNP. The basic programming principle is similar to that of punch cards: a program is split into several blocks, where various aspects of a simulation are defined. The first block defines cells, the second one defines surfaces, finally, the last block defines what simulations MCNP is supposed to run. An example MCNP program structure can be seen in Figure \ref{fig:program}. The blocks are separated by blank lines, which are required for MCNP to properly read in the file. If the lines are omitted, then the definitions will not be seen correctly. Comments can be added to the input files as well. A full line comment starts with the letter "c", whilst an inline comment starts with a dollar sign (\$). It is important to note that all lines should not exceed 80 characters in length.
 
