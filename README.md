@@ -9,9 +9,16 @@ The Major Qualifying Project report at WPI. Written by Ivan Melnikov and Sultan 
 
 - [ ] Abstract  
 - [x] Introduction  
-- [x] MCNP   
+- [x] MCNP  
 - [x] Methods  
 - [x] Results  
 - [x] Conclusion  
 - [x] Further work  
-- [ ] Appendix  
+- [x] Appendix  
+
+## Revisions
+
+- [x] Figure captions
+- [x] New page for each chapter
+- [x] Capitalize figure/table words
+- [] Results graphs
