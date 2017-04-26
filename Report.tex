@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper,bibliography=totocnumbered]{report}
 \usepackage[margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -7,6 +7,13 @@
 \usepackage{indentfirst}
 \graphicspath{{figures/}}
 \usepackage{setspace}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\thebibliography}{%
+  \chapter*{\bibname}\@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}}{%
+  \section{References}}{}{}
+\makeatother
 
 \doublespacing
 
